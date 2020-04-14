@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+       <title> Testomgeving canvas  </title>
+	<link rel="stylesheet" href="stijl.css" />
+</head>
+<body>
+			<!-- afbeeldingen -->
+			<div style="display:none;">
+				<!-- figuren -->
+				<img src="vierkant.jpg" alt="vierkant" id="vierkant"/>
+				<img src="driehoek.jpg" alt="driehoek" id="driehoek"/>
+				<img src="cirkel.jpg" alt="cirkel" id="cirkel" />
+				<img src="vierkantgekozen.jpg" alt="vierkantgekozen" id="vierkantgekozen" />
+				<img src="driehoekgekozen.jpg" alt="driehoekgekozen" id="driehoekgekozen"/>
+				<img src="cirkelgekozen.jpg" alt="cirkelgekozen" id="cirkelgekozen" />
+				<!-- kleuren -->
+				<img src="groen.jpg" alt="groen" id="groen" />
+				<img src="rood.jpg" alt="rood" id="rood" />
+				<img src="blauw.jpg" alt="blauw" id="blauw" />
+				<img src="groengekozen.jpg" alt="groengekozen" id="groengekozen" />
+				<img src="roodgekozen.jpg" alt="roodgekozen" id="roodgekozen" />
+				<img src="blauwgekozen.jpg" alt="blauwgekozen" id="blauwgekozen" />
+				<!-- wiskundige symbolen -->
+				<img src="Gelijkheidsteken.jpg" alt ="gelijkheidsteken" id="gelijkheidsteken" />
+				<img src="plusteken.jpg" alt="plusteken" id="plusteken" />
+				
+				<!-- mogelijke antwoorden -->
+				<img src="blauwVierkant.jpg" alt ="blauwVierkant" id="0" />
+				<img src="blauwDriehoek.jpg" alt ="blauwDriehoek" id="1" />
+				<img src="blauwCirkel.jpg" alt ="blauwCirkel" id="2" />
+				<img src="groenVierkant.jpg" alt ="groenVierkant" id="3" />
+				<img src="groenDriehoek.jpg" alt ="groenDriehoek" id="4" />
+				<img src="groenCirkel.jpg" alt ="groenCirkel" id="5" />
+				<img src="roodVierkant.jpg" alt ="roodVierkant" id="6" />
+				<img src="roodDriehoek.jpg" alt ="roodDriehoek" id="7" />
+				<img src="roodCirkel.jpg" alt ="roodCirkel" id="8" />
+			</div>
+
+			<!-- canvas, verhouding width op height moet altijd 5/3 zijn -->
+			<canvas id="hetCanvas" width="600" height="400">
+			</canvas>
+            
+            <a onclick="check()" class="btn-pill green" id="controleer">Controleer</a>
+			
+			<!-- JavaScript -->
+			<script type="text/javascript">
+			
+			//globale variabele die output bijhoudt
+			var randomInteger
+			var vormInteger
+			var kleurInteger
+			var kleurPositie
+			var vormPositie
+			var randomPositie
+			var randomPositie2
+			var randomKeuze
+			var canvas
+			var ctx
+			var w 
+			var h
+			var gelijkheidstekenImg 
+			var plustekenImg
+			var outputAfbeelding
+			var groenImg 
+			var roodImg
+			var blauwImg= document.getElementById("blauw");
+			var vierkantImg
+			var driehoekImg
+			var cirkelImg
+			var groengekozen =document.getElementById("groengekozen")
+			var roodgekozen =document.getElementById("roodgekozen")
+			var blauwgekozen = document.getElementById("blauwgekozen")
+			var vierkantgekozen = document.getElementById("vierkantgekozen")
+			var cirkelgekozen = document.getElementById("cirkelgekozen")
+			var driehoekgekozen = document.getElementById("driehoekgekozen")
+			var test =true
+			var kleurarray=['0' , '0' , '0']
+			var vormarray= ['0' , '0' , '0']
+			
+			
+			
+			function printarray(array)
+			{
+					for(i= 0 ; i<array.length ; i++)
+						console.log(array[i]+" ")
+					console.log("\n")
+					
+			}
+			
+			
+			
+			function tekeningangen()
+			{	//groen
+				 groenImg = document.getElementById("groen");
+				 ctx.drawImage(groenImg,0*w,3*h,w,h);
+				//rood
+				 roodImg = document.getElementById("rood");
+				 ctx.drawImage(roodImg,1*w,3*h,w,h);
+			
+				//blauw
+				 blauwImg = document.getElementById("blauw");
+				 ctx.drawImage(blauwImg,2*w,3*h,w,h);
+				//vierkant
+				 vierkantImg = document.getElementById("vierkant");
+				 ctx.drawImage(vierkantImg,3*w,3*h,w,h);
+				//driehoek
+				 driehoekImg = document.getElementById("driehoek");
+				 ctx.drawImage(driehoekImg,4*w,3*h,w,h);
+				//cirkel
+				 cirkelImg = document.getElementById("cirkel");
+				 ctx.drawImage(cirkelImg,5*w,3*h,w,h);
+			}
+			
+			function tekenKleurenKeuzes()
+			{	
+				if(kleurarray[0]==1){
+					
+					ctx.drawImage(groenImg,1*w,1.5*h,w,h);
+					ctx.drawImage(groengekozen,0*w,3*h,w,h);
+				}
+				else	
+					ctx.drawImage(groenImg,0*w,3*h,w,h);
+				
+				if(kleurarray[1]==1)
+				{
+					
+					ctx.drawImage(roodImg,1*w,1.5*h,w,h);
+					ctx.drawImage(roodgekozen,1*w,3*h,w,h);
+				}
+				else
+					ctx.drawImage(roodImg,1*w,3*h,w,h);
+				
+				if(kleurarray[2]==1)
+				{
+					
+					ctx.drawImage(blauwImg,1*w,1.5*h,w,h);
+					ctx.drawImage(blauwgekozen,2*w,3*h,w,h);
+				}
+				else
+					ctx.drawImage(blauwImg,2*w,3*h,w,h);
+				
+				
+					
+			}
+			
+			
+			function tekenVormenKeuzes()
+			{
+				if(vormarray[0]==1)
+				{
+					
+					ctx.drawImage(vierkantImg,3*w,1.5*h,w,h);
+					ctx.drawImage(vierkantgekozen,3*w,3*h,w,h);
+				}
+				
+				else
+					ctx.drawImage(vierkantImg,3*w,3*h,w,h);
+				if(vormarray[1]==1)
+				{
+					
+					ctx.drawImage(driehoekImg,3*w,1.5*h,w,h);
+					ctx.drawImage(driehoekgekozen,4*w,3*h,w,h);
+				}
+				else
+					ctx.drawImage(driehoekImg,4*w,3*h,w,h);
+				
+				if(vormarray[2]==1)
+				{
+					
+					ctx.drawImage(cirkelImg,3*w,1.5*h,w,h);
+					ctx.drawImage(cirkelgekozen,5*w,3*h,w,h);
+				}
+				else
+					ctx.drawImage(cirkelImg,5*w,3*h,w,h);
+			}
+			
+			
+			//outputfunctie geeft een outputafbeelding
+			function randomOutputGen(){
+				randomInteger = Math.floor(Math.random()*9);
+				return document.getElementById(randomInteger.toString())
+			}
+			
+			//leeg canvas
+			window.onload = function(){
+			 canvas = document.getElementById('hetCanvas');
+			 ctx = canvas.getContext('2d');
+			 ctx.fillStyle = "#FFFFFF";
+			 w = canvas.width/6;
+			 h = canvas.height/4;
+			ctx.fillRect(0,0,canvas.width,canvas.height);
+			canvas.addEventListener('mousedown',onDown,false)
+			init()
+			tekeningangen();
+			tekenKleurenKeuzes();
+			tekenVormenKeuzes();
+			}
+			
+			//window.onclick = function(e){
+			 
+			
+			function onDown(event){
+				cx = event.offsetX;
+				cy = event.offsetY;
+				console.log("x ,y="+cx+' , '+cy)
+				
+				if(cx >=0 && cx<=100 && cy>=300)
+				{
+					kleurarray[0] = '1'
+					kleurarray[1] = '0'
+					kleurarray[2] = '0'
+					tekenKleurenKeuzes()
+					
+					
+					
+				}
+				
+				
+				if(cx >= 101 && cx<=200 && cy>=300)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='1'
+					kleurarray[2]='0'
+					tekenKleurenKeuzes()
+					
+				}
+				
+				if(cx >= 201 && cx<=300 && cy>=300)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='0'
+					kleurarray[2]='1'
+					tekenKleurenKeuzes()
+					
+				}
+				
+				
+				if(cx >= 301 && cx<=400 && cy>=300)
+				{
+					vormarray[0]='1'
+					vormarray[1]='0'
+					vormarray[2]='0'
+					tekenVormenKeuzes()
+					
+				}
+				
+				if(cx >= 401 && cx<=500 && cy>=300)
+				{
+					vormarray[0]='0'
+					vormarray[1]='1'
+					vormarray[2]='0'
+					tekenVormenKeuzes()
+					
+				}
+				
+				if(cx >= 501 && cx<=600 && cy>=300)
+				{
+					vormarray[0]='0'
+					vormarray[1]='0'
+					vormarray[2]='1'
+					tekenVormenKeuzes()
+					
+				}
+				
+			}
+			
+			
+			function clearCanvas() {
+				canvas.width = canvas.width;
+			}
+			
+			/*//vierkant
+			var vierkantImg = document.getElementById("vierkant");
+			vierkantImg.addEventListener('load',e => {
+				ctx.drawImage(vierkantImg,w,0.5*h,w,h);
+			});
+			
+			//driehoek
+			var driehoekImg = document.getElementById("driehoek");
+			driehoekImg.addEventListener('load',e => {
+				ctx.drawImage(driehoekImg,w,1.5*h,w,h);
+			});
+			
+			//cirkel
+			var cirkelImg = document.getElementById("cirkel");
+			cirkelImg.addEventListener('load',e => {
+				ctx.drawImage(cirkelImg,w,2.5*h,w,h);
+			});
+			
+			
+			
+			
+			
+			//groen
+			var groenImg = document.getElementById("groen");
+			groenImg.addEventListener('load',e => {
+				ctx.drawImage(groenImg,3*w,0.5*h,w,h);
+			});
+			
+			//rood
+			var roodImg = document.getElementById("rood");
+			roodImg.addEventListener('load',e => {
+				ctx.drawImage(roodImg,3*w,1.5*h,w,h);
+			});
+			
+			//blauw
+			var blauwImg = document.getElementById("blauw");
+			blauwImg.addEventListener('load',e => {
+				ctx.drawImage(blauwImg,3*w,2.5*h,w,h);
+			});*/
+			
+			
+					
+			/*var groenImg = document.getElementById("groen");
+					groenImg.addEventListener('load',e => {
+					ctx.drawImage(groenImg,3*w,1.5*h,w,h);
+					});*/
+			function init(){
+			//gelijkheidsteken
+			 gelijkheidstekenImg = document.getElementById("gelijkheidsteken");
+			 ctx.drawImage(gelijkheidsteken, 4 *w , 1.5*h ,w ,h)
+			
+			//plusteken
+			 plustekenImg = document.getElementById("plusteken");
+			 ctx.drawImage(plustekenImg,2*w,1.5*h,w,h);
+			
+			//output afbeelding
+			outputAfbeelding = randomOutputGen();
+			ctx.drawImage(outputAfbeelding,5*w,1.5*h,w,h);
+			
+			
+			}
+                
+            function check() {
+                if(kleurarray[0]==1 && vormarray[0]==1 && randomInteger==3  ) {
+                    alert("groenvierkant");
+                    location.reload();
+                }
+                
+                else if(kleurarray[1]==1 && vormarray[0]==1 && randomInteger== 6 ) {
+                    alert("roodvierkant");
+                    location.reload();
+                }
+                
+                else if(kleurarray[2]==1 && vormarray[0]==1 && randomInteger==0  ) {
+                    alert("blauwvierkant");
+                    location.reload();
+                }
+                
+                else if(kleurarray[0]==1 && vormarray[1]==1 && randomInteger==4  ) {
+                    alert("groendriehoek");
+                    location.reload();
+                }
+               
+                else if(kleurarray[1]==1 && vormarray[1]==1 && randomInteger==7  ) {
+                    alert("rodedriehoek");
+                    location.reload();
+                }
+                
+                else if(kleurarray[2]==1 && vormarray[1]==1 && randomInteger==1  ) {
+                    alert("");
+                    location.reload();
+                }
+                
+                else if(kleurarray[0]==1 && vormarray[2]==1 && randomInteger==5  ) {
+                    alert("groenecirkel");
+                    location.reload();
+                }
+                
+                else if(kleurarray[1]==1 && vormarray[2]==1 && randomInteger==8  ) {
+                    alert("rodecirkel");
+                    location.reload();
+                }
+                
+                else if(kleurarray[2]==1 && vormarray[0]==1 && randomInteger==2  ) {
+                    alert("blauwecirkels");
+                    location.reload();
+                }
+                
+                else {
+                    alert("Foute combinatie. Probeer opnieuw!");
+                    location.reload();
+                }
+            }
+			
+			
+			
+		
+			
+			</script>
+	</body>
+</html>
