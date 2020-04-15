@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+       <title> Testomgeving canvas  </title>
+	<link rel="stylesheet" href="stijlknop.css" />
+</head>
+<body>
+			<!-- afbeeldingen -->
+			<div style="display:none;">
+				<!-- figuren -->
+				<img src="vierkant.jpg" alt="vierkant" id="vierkant"/>
+				<img src="driehoek.jpg" alt="driehoek" id="driehoek"/>
+				<img src="cirkel.jpg" alt="cirkel" id="cirkel" />
+				<img src="ster.jpg" alt="ster" id="ster" />
+				<img src="zeshoek.jpg" alt="zeshoek" id="zeshoek" />
+				
+				<!-- kleuren -->
+				<img src="groen.jpg" alt="groen" id="groen" />
+				<img src="rood.jpg" alt="rood" id="rood" />
+				<img src="blauw.jpg" alt="blauw" id="blauw" />
+				<img src="paars.jpg" alt="paars" id="paars" />
+				<img src="geel.jpg" alt="geel" id="geel" />
+				
+				<!-- wiskundige symbolen -->
+				<img src="Gelijkheidsteken.jpg" alt ="gelijkheidsteken" id="gelijkheidsteken" />
+				<img src="plusteken.jpg" alt="plusteken" id="plusteken" />
+				
+				<!-- mogelijke antwoorden -->
+				<img src="blauwVierkant.jpg" alt ="blauwVierkant" id="0" /> <!-- makkelijk -->
+				<img src="blauwDriehoek.jpg" alt ="blauwDriehoek" id="1" /><!-- makkelijk -->
+				<img src="blauwCirkel.jpg" alt ="blauwCirkel" id="2" /><!-- makkelijk -->
+				<img src="blauwSter.jpg" alt ="blauwSter" id="9" />	<!-- normaal -->
+				<img src="blauwZeshoek.jpg" alt ="blauwZeshoek" id="20" /><!-- moeilijk -->
+				<img src="groenVierkant.jpg" alt ="groenVierkant" id="3" /><!-- makkelijk -->
+				<img src="groenDriehoek.jpg" alt ="groenDriehoek" id="4" /><!-- makkelijk -->
+				<img src="groenCirkel.jpg" alt ="groenCirkel" id="5" /><!-- makkelijk -->
+				<img src="groenSter.jpg" alt ="groenSter" id="10" />	<!-- normaal -->
+				<img src="groenZeshoek.jpg" alt ="groenZeshoek" id="21" /><!-- moeilijk -->
+				<img src="roodVierkant.jpg" alt ="roodVierkant" id="6" /><!-- makkelijk -->
+				<img src="roodDriehoek.jpg" alt ="roodDriehoek" id="7" /><!-- makkelijk -->
+				<img src="roodCirkel.jpg" alt ="roodCirkel" id="8" /><!-- makkelijk -->
+				<img src="roodSter.jpg" alt ="roodSter" id="11" /><!-- normaal -->
+				<img src="roodZeshoek.jpg" alt ="roodZeshoek" id="22" /><!-- moeilijk -->
+				<img src="paarsVierkant.jpg" alt ="paarsVierkant" id="12" /><!-- normaal -->
+				<img src="paarsDriehoek.jpg" alt ="paarsDriehoek" id="13" /><!-- normaal -->
+				<img src="paarsCirkel.jpg" alt ="paarsCirkel" id="14" /><!-- normaal -->
+				<img src="paarsSter.jpg" alt ="paarsSter" id="15" /><!-- normaal -->
+				<img src="paarsZeshoek.jpg" alt ="paarsZeshoek" id="23" /><!-- moeilijk -->
+				<img src="geelVierkant.jpg" alt ="geelVierkant" id="16" /><!-- moeilijk -->
+				<img src="geelDriehoek.jpg" alt ="geelDriehoek" id="17" /><!-- moeilijk -->
+				<img src="geelCirkel.jpg" alt ="geelCirkel" id="18" /><!-- moeilijk -->
+				<img src="geelSter.jpg" alt ="geelSter" id="19" /><!-- moeilijk -->
+				<img src="geelZeshoek.jpg" alt ="geelZeshoek" id="24" /><!-- moeilijk -->
+			</div>
+
+		
+			<canvas id="hetCanvas" width="900" height="480">
+			</canvas>
+            
+            <a onclick="check()" class="btn-pill green" id="controleer">Controleer</a>
+			
+			<!-- JavaScript -->
+			<script type="text/javascript">
+			
+			//globale variabele die output bijhoudt
+			var randomInteger
+			var canvas
+			var ctx
+			var w 
+			var h
+			var gelijkheidstekenImg 
+			var plustekenImg
+			var outputAfbeelding
+			var groenImg 
+			var roodImg
+			var blauwImg= document.getElementById("blauw");
+			var paarsImg= document.getElementById("paars");
+			var geelImg= document.getElementById("geel");
+			var vierkantImg
+			var driehoekImg
+			var cirkelImg
+			var sterImg =document.getElementById("ster");
+			var zeshoekImg = document.getElementById("zeshoek");
+			var niveau = 1 ;
+			var kleurarray=['0' , '0' , '0' ,'0','0']
+			var vormarray= ['0' , '0' , '0', '0', '0']
+			
+			
+			
+			function printarray(array)
+			{
+					for(i= 0 ; i<array.length ; i++)
+						console.log(array[i]+" ")
+					console.log("\n")
+					
+			}
+			
+			
+			
+			function tekeningangen(niveau)
+			{	
+				if(niveau==1)
+				{
+					//groen
+					 groenImg = document.getElementById("groen");
+					 ctx.drawImage(groenImg,0*w,3*h,w,h);
+					//rood
+					 roodImg = document.getElementById("rood");
+					 ctx.drawImage(roodImg,1*w,3*h,w,h);
+				
+					//blauw
+					 blauwImg = document.getElementById("blauw");
+					 ctx.drawImage(blauwImg,2*w,3*h,w,h);
+					//vierkant
+					 vierkantImg = document.getElementById("vierkant");
+					 ctx.drawImage(vierkantImg,3*w,3*h,w,h);
+					//driehoek
+					 driehoekImg = document.getElementById("driehoek");
+					 ctx.drawImage(driehoekImg,4*w,3*h,w,h);
+					//cirkel
+					 cirkelImg = document.getElementById("cirkel");
+					 ctx.drawImage(cirkelImg,5*w,3*h,w,h);
+				}
+				
+				if(niveau==2)
+				{
+					//groen
+					 groenImg = document.getElementById("groen");
+					 ctx.drawImage(groenImg,0*w,3*h,w,h);
+					//rood
+					 roodImg = document.getElementById("rood");
+					 ctx.drawImage(roodImg,1*w,3*h,w,h);
+				
+					//blauw
+					 blauwImg = document.getElementById("blauw");
+					 ctx.drawImage(blauwImg,2*w,3*h,w,h);
+					 //paars
+					 //blauw
+					 paarsImg = document.getElementById("paars");
+					 ctx.drawImage(paarsImg,3*w,3*h,w,h);
+					//vierkant
+					 vierkantImg = document.getElementById("vierkant");
+					 ctx.drawImage(vierkantImg,4*w,3*h,w,h);
+					//driehoek
+					 driehoekImg = document.getElementById("driehoek");
+					 ctx.drawImage(driehoekImg,5*w,3*h,w,h);
+					//cirkel
+					 cirkelImg = document.getElementById("cirkel");
+					 ctx.drawImage(cirkelImg,6*w,3*h,w,h);
+					 //ster
+					 sterImg = document.getElementById("ster");
+					 ctx.drawImage(sterImg,7*w,3*h,w,h);
+				}
+				
+				if(niveau==3)
+				{
+					//groen
+					 groenImg = document.getElementById("groen");
+					 ctx.drawImage(groenImg,0*w,3*h,w,h);
+					//rood
+					 roodImg = document.getElementById("rood");
+					 ctx.drawImage(roodImg,1*w,3*h,w,h);
+				
+					//blauw
+					 blauwImg = document.getElementById("blauw");
+					 ctx.drawImage(blauwImg,2*w,3*h,w,h);
+					 //paars
+					 paarsImg = document.getElementById("paars");
+					 ctx.drawImage(paarsImg,3*w,3*h,w,h);
+					 //geel
+					 geelImg = document.getElementById("geel");
+					 ctx.drawImage(geelImg,4*w,3*h,w,h);
+					//vierkant
+					 vierkantImg = document.getElementById("vierkant");
+					 ctx.drawImage(vierkantImg,5*w,3*h,w,h);
+					//driehoek
+					 driehoekImg = document.getElementById("driehoek");
+					 ctx.drawImage(driehoekImg,6*w,3*h,w,h);
+					//cirkel
+					 cirkelImg = document.getElementById("cirkel");
+					 ctx.drawImage(cirkelImg,7*w,3*h,w,h);
+					 //ster
+					 sterImg = document.getElementById("ster");
+					 ctx.drawImage(sterImg,8*w,3*h,w,h);
+					 //zeshoek
+					 zeshoekImg = document.getElementById("zeshoek");
+					 ctx.drawImage(zeshoekImg,9*w,3*h,w,h);
+				}
+				
+				
+			}
+			
+			function tekenKleurenKeuzes(niveau)
+			{	if(niveau==1)
+				{	
+					console.log("in tekenKleurenKeuzes "+ niveau);
+					if(kleurarray[0]==1)
+					{
+						ctx.drawImage(groenImg,0.5*w,1*h,w,h);
+					}
+					
+					
+					if(kleurarray[1]==1)
+					{
+						
+						ctx.drawImage(roodImg,0.5*w,1*h,w,h);
+						
+					}
+					
+					
+					if(kleurarray[2]==1)
+					{
+						
+						ctx.drawImage(blauwImg,0.5*w,1*h,w,h);
+						
+					}
+					
+				}
+				if(niveau==2)
+				{	
+					
+					if(kleurarray[0]==1)
+					{
+						ctx.drawImage(groenImg,1*w,1*h,w,h);
+					}
+					
+					
+					if(kleurarray[1]==1)
+					{
+						
+						ctx.drawImage(roodImg,1*w,1*h,w,h);
+						
+					}
+					
+					
+					if(kleurarray[2]==1)
+					{
+						
+						ctx.drawImage(blauwImg,1*w,1*h,w,h);
+						
+					}
+					if(kleurarray[3]==1)
+					{
+						
+						ctx.drawImage(paarsImg,1*w,1*h,w,h);
+						
+					}
+				}
+					
+				if(niveau==3)
+				{	
+					
+					if(kleurarray[0]==1)
+					{
+						ctx.drawImage(groenImg,2.5*w,1*h,w,h);
+					}
+					
+					
+					if(kleurarray[1]==1)
+					{
+						
+						ctx.drawImage(roodImg,2.5*w,1*h,w,h);
+						
+					}
+					
+					
+					if(kleurarray[2]==1)
+					{
+						
+						ctx.drawImage(blauwImg,2.5*w,1*h,w,h);
+						
+					}
+					if(kleurarray[3]==1)
+					{
+						
+						ctx.drawImage(paarsImg,2.5*w,1*h,w,h);
+						
+					}	
+					if(kleurarray[4]==1)
+					{
+						
+						ctx.drawImage(geelImg,2.5*w,1*h,w,h);
+						
+					}
+				}
+				
+				
+					
+			}
+			
+			
+			function tekenVormenKeuzes()
+			{
+				if(niveau==1)
+				{
+					if(vormarray[0]==1)
+					{
+						
+						ctx.drawImage(vierkantImg,2.5*w,1*h,w,h);
+						
+					}
+					
+					
+					if(vormarray[1]==1)
+					{
+						
+						ctx.drawImage(driehoekImg,2.5*w,1*h,w,h);
+						
+					}
+					
+					
+					if(vormarray[2]==1)
+					{
+						
+						ctx.drawImage(cirkelImg,2.5*w,1*h,w,h);
+						
+					}
+				}
+				if(niveau==2)
+				{
+					if(vormarray[0]==1)
+					{
+						
+						ctx.drawImage(vierkantImg,4*w,1*h,w,h);
+						
+					}
+					
+					
+					if(vormarray[1]==1)
+					{
+						
+						ctx.drawImage(driehoekImg,4*w,1*h,w,h);
+						
+					}
+					
+					
+					if(vormarray[2]==1)
+					{
+						
+						ctx.drawImage(cirkelImg,4*w,1*h,w,h);
+						
+					}
+					if(vormarray[3]==1)
+					{
+						
+						ctx.drawImage(sterImg,4*w,1*h,w,h);
+						
+					}
+				}
+				if(niveau==3)
+				{
+					if(vormarray[0]==1)
+					{
+						
+						ctx.drawImage(vierkantImg,5.5*w,1*h,w,h);
+						
+					}
+					
+					
+					if(vormarray[1]==1)
+					{
+						
+						ctx.drawImage(driehoekImg,5.5*w,1*h,w,h);
+						
+					}
+					
+					
+					if(vormarray[2]==1)
+					{
+						
+						ctx.drawImage(cirkelImg,5.5*w,1*h,w,h);
+						
+					}
+					if(vormarray[3]==1)
+					{
+						
+						ctx.drawImage(sterImg,5.5*w,1*h,w,h);
+						
+					}
+					if(vormarray[4]==1)
+					{
+					
+						ctx.drawImage(zeshoekImg,5.5*w,1*h,w,h);
+					
+					}
+				}
+				
+			}
+			
+			
+			//outputfunctie geeft een outputafbeelding
+			function randomOutputGen(niveau){
+				if(niveau ==1)
+				{
+					randomInteger = Math.floor(Math.random()*9);
+					return document.getElementById(randomInteger.toString())
+				}
+				if(niveau ==2)
+				{
+					randomInteger = Math.floor(Math.random()*16);
+					return document.getElementById(randomInteger.toString())
+				}
+				
+				if(niveau ==3)
+				{
+					randomInteger = Math.floor(Math.random()*25);
+					return document.getElementById(randomInteger.toString())
+				}
+				
+			}
+			
+			//leeg canvas
+			window.onload = function(){
+			 canvas = document.getElementById('hetCanvas');
+			 ctx = canvas.getContext('2d');
+			 ctx.fillStyle = "#FFFFFF";
+			 
+			 if(niveau==1)
+			 {	
+				w = canvas.width/6;
+				h = canvas.height/4;
+				ctx.fillRect(0,0,canvas.width,canvas.height);
+				canvas.addEventListener('mousedown',onDown,false)
+				init(niveau);
+				tekeningangen(niveau);
+				//tekenKleurenKeuzes();
+				//tekenVormenKeuzes();
+			}
+			
+			if(niveau==2)
+			{
+				w = canvas.width/8;
+				h = canvas.height/4;
+				ctx.fillRect(0,0,canvas.width,canvas.height);
+				canvas.addEventListener('mousedown',onDown2,false)
+				init(niveau);
+				tekeningangen(niveau);
+			}
+			
+			if(niveau==3)
+			{
+				w = canvas.width/10;
+				h = canvas.height/4;
+				ctx.fillRect(0,0,canvas.width,canvas.height);
+				canvas.addEventListener('mousedown',onDown3,false)
+				init(niveau);
+				tekeningangen(niveau);
+			}
+			
+			tekenKleurenKeuzes(niveau);
+			tekenVormenKeuzes();
+			}
+			
+			//window.onclick = function(e){
+			 
+			
+			function onDown(event){
+				cx = event.offsetX;
+				cy = event.offsetY;
+				console.log("x ,y="+cx+' , '+cy)
+				
+				if(cx >=0 && cx<=150 && cy>=360)
+				{
+					kleurarray[0] = '1'
+					kleurarray[1] = '0'
+					kleurarray[2] = '0'
+					kleurarray[3] = '0'
+					kleurarray[4] = '0'
+					
+					
+					
+					
+				}
+				
+				
+				if(cx >= 151 && cx<=300 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='1'
+					kleurarray[2]='0'
+					kleurarray[3] = '0'
+					kleurarray[4] = '0'
+					
+					
+				}
+				
+				if(cx >= 301 && cx<=450 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='0'
+					kleurarray[2]='1'
+					kleurarray[3] = '0'
+					kleurarray[4] = '0'
+					
+					
+				}
+				
+				
+				if(cx >= 451 && cx<=600 && cy>=360)
+				{
+					vormarray[0]='1'
+					vormarray[1]='0'
+					vormarray[2]='0'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					
+					
+				}
+				
+				if(cx >= 601 && cx<=750 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='1'
+					vormarray[2]='0'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					
+					
+				}
+				
+				if(cx >= 751 && cx<=900 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='0'
+					vormarray[2]='1'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					
+					
+				}
+				tekenKleurenKeuzes(niveau)
+				tekenVormenKeuzes(niveau)
+			}
+			
+			function onDown2(event){
+				cx = event.offsetX;
+				cy = event.offsetY;
+				console.log("x ,y="+cx+' , '+cy)
+				
+				if(cx >=0 && cx<=112.5 && cy>=360)
+				{
+					kleurarray[0] = '1'
+					kleurarray[1] = '0'
+					kleurarray[2] = '0'
+					kleurarray[3] = '0'
+					kleurarray[4] = '0'
+					
+					
+					
+					
+				}
+				
+				
+				if(cx >= 113 && cx<=224.5 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='1'
+					kleurarray[2]='0'
+					kleurarray[3] = '0'
+					kleurarray[4] = '0'
+					
+					
+				}
+				
+				if(cx >= 225 && cx<=336.5 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='0'
+					kleurarray[2]='1'
+					kleurarray[3] = '0'
+					kleurarray[4] = '0'
+					
+					
+				}
+				
+				
+				if(cx >= 337 && cx<=448.5 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='0'
+					kleurarray[2]='0'
+					kleurarray[3] = '1'
+					kleurarray[4] = '0'
+					
+					
+				}
+				
+				if(cx >= 449 && cx<=560.5 && cy>=360)
+				{
+					vormarray[0]='1'
+					vormarray[1]='0'
+					vormarray[2]='0'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					
+					
+				}
+				
+				if(cx >= 561 && cx<=672.5 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='1'
+					vormarray[2]='0'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					
+					
+				}
+				
+				if(cx >= 673 && cx<=784.5 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='0'
+					vormarray[2]='1'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					
+					
+				}
+				if(cx >= 785 && cx<=900 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='0'
+					vormarray[2]='0'
+					vormarray[3]='1'
+					vormarray[4]='0'
+					
+					
+				}
+				tekenKleurenKeuzes(niveau)
+				tekenVormenKeuzes(niveau)
+				
+			}
+			
+			function onDown3(event){
+				cx = event.offsetX;
+				cy = event.offsetY;
+				console.log("x ,y="+cx+' , '+cy)
+				
+				if(cx >=0 && cx<=90 && cy>=360)
+				{
+					kleurarray[0] = '1'
+					kleurarray[1] = '0'
+					kleurarray[2] = '0'
+					kleurarray[3] = '0'
+					kleurarray[4] = '0'
+					
+					
+					
+					
+				}
+				
+				
+				if(cx >= 91 && cx<=180 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='1'
+					kleurarray[2]='0'
+					kleurarray[3]= '0'
+					kleurarray[4]= '0'
+					
+					
+				}
+				
+				if(cx >= 181 && cx<=270 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='0'
+					kleurarray[2]='1'
+					kleurarray[3] = '0'
+					kleurarray[4] = '0'
+					
+					
+				}
+				
+				
+				if(cx >= 271 && cx<=360 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='0'
+					kleurarray[2]='0'
+					kleurarray[3] = '1'
+					kleurarray[4] = '0'
+					
+					
+				}
+				
+				if(cx >= 361 && cx<=450 && cy>=360)
+				{
+					kleurarray[0]='0'
+					kleurarray[1]='0'
+					kleurarray[2]='0'
+					kleurarray[3] = '0'
+					kleurarray[4] = '1'
+					
+					
+				}
+				
+				if(cx >= 451 && cx<=540 && cy>=360)
+				{
+					vormarray[0]='1'
+					vormarray[1]='0'
+					vormarray[2]='0'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					tekenVormenKeuzes()
+					
+				}
+				
+				if(cx >= 541 && cx<=630 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='1'
+					vormarray[2]='0'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					
+					
+				}
+				
+				if(cx >= 631 && cx<=720 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='0'
+					vormarray[2]='1'
+					vormarray[3]='0'
+					vormarray[4]='0'
+					
+					
+				}
+				if(cx >= 721 && cx<=810 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='0'
+					vormarray[2]='0'
+					vormarray[3]='1'
+					vormarray[4]='0'
+					
+					
+				}
+				if(cx >= 811 && cx<=900 && cy>=360)
+				{
+					vormarray[0]='0'
+					vormarray[1]='0'
+					vormarray[2]='0'
+					vormarray[3]='0'
+					vormarray[4]='1'
+					
+					
+				}
+				tekenKleurenKeuzes(niveau)
+				tekenVormenKeuzes(niveau)
+			}
+			
+			function clearCanvas() {
+				canvas.width = canvas.width;
+			}
+			
+			/*//vierkant
+			var vierkantImg = document.getElementById("vierkant");
+			vierkantImg.addEventListener('load',e => {
+				ctx.drawImage(vierkantImg,w,0.5*h,w,h);
+			});
+			
+			//driehoek
+			var driehoekImg = document.getElementById("driehoek");
+			driehoekImg.addEventListener('load',e => {
+				ctx.drawImage(driehoekImg,w,1.5*h,w,h);
+			});
+			
+			//cirkel
+			var cirkelImg = document.getElementById("cirkel");
+			cirkelImg.addEventListener('load',e => {
+				ctx.drawImage(cirkelImg,w,2.5*h,w,h);
+			});
+			
+			
+			
+			
+			
+			//groen
+			var groenImg = document.getElementById("groen");
+			groenImg.addEventListener('load',e => {
+				ctx.drawImage(groenImg,3*w,0.5*h,w,h);
+			});
+			
+			//rood
+			var roodImg = document.getElementById("rood");
+			roodImg.addEventListener('load',e => {
+				ctx.drawImage(roodImg,3*w,1.5*h,w,h);
+			});
+			
+			//blauw
+			var blauwImg = document.getElementById("blauw");
+			blauwImg.addEventListener('load',e => {
+				ctx.drawImage(blauwImg,3*w,2.5*h,w,h);
+			});*/
+			
+			
+					
+			/*var groenImg = document.getElementById("groen");
+					groenImg.addEventListener('load',e => {
+					ctx.drawImage(groenImg,3*w,1.5*h,w,h);
+					});*/
+			function init(niveau){
+			//gelijkheidsteken
+				if(niveau==1)
+				{	gelijkheidstekenImg = document.getElementById("gelijkheidsteken");
+					 console.log(h)
+					 ctx.drawImage(gelijkheidsteken, 3.5 *w , 1*h ,w ,h)
+					
+					//plusteken
+					 plustekenImg = document.getElementById("plusteken");
+					 ctx.drawImage(plustekenImg,1.5*w,1*h,w,h);
+					
+					//output afbeelding
+					outputAfbeelding = randomOutputGen(niveau);
+					ctx.drawImage(outputAfbeelding,4.5*w,1*h,w,h);
+				}
+				if(niveau==2)
+				{	gelijkheidstekenImg = document.getElementById("gelijkheidsteken");
+					 console.log(h)
+					 ctx.drawImage(gelijkheidsteken,5.5 *w , 1*h ,w ,h)
+					
+					//plusteken
+					 plustekenImg = document.getElementById("plusteken");
+					 ctx.drawImage(plustekenImg,2.5*w,1*h,w,h);
+					
+					//output afbeelding
+					outputAfbeelding = randomOutputGen(niveau);
+					ctx.drawImage(outputAfbeelding,6.5*w,1*h,w,h);
+				}
+				if(niveau==3)
+				{	gelijkheidstekenImg = document.getElementById("gelijkheidsteken");
+					 console.log(h)
+					 ctx.drawImage(gelijkheidsteken,7 *w , 1*h ,w ,h)
+					
+					//plusteken
+					 plustekenImg = document.getElementById("plusteken");
+					 ctx.drawImage(plustekenImg,4*w,1*h,w,h);
+					
+					//output afbeelding
+					outputAfbeelding = randomOutputGen(niveau);
+					ctx.drawImage(outputAfbeelding,8*w,1*h,w,h);
+				}
+			
+			}
+			
+			
+                
+            function check() {
+				//vierhoeken
+                if(kleurarray[0]==1 && vormarray[0]==1 && randomInteger==3  ) {
+                    alert("groenvierkant");
+                    location.reload();
+                }
+                
+                else if(kleurarray[1]==1 && vormarray[0]==1 && randomInteger== 6 ) {
+                    alert("roodvierkant");
+                    location.reload();
+                }
+                
+                else if(kleurarray[2]==1 && vormarray[0]==1 && randomInteger==0  ) {
+                    alert("blauwvierkant");
+                    location.reload();
+                }
+				
+				else if(kleurarray[3]==1 && vormarray[0]==1 && randomInteger==12  ) {
+                    alert("paarsvierkant");
+                    location.reload();
+                }
+				
+				else if(kleurarray[4]==1 && vormarray[0]==1 && randomInteger==16  ) {
+                    alert("geelvierkant");
+                    location.reload();
+                }
+                //driehoeken
+                else if(kleurarray[0]==1 && vormarray[1]==1 && randomInteger==4  ) {
+                    alert("groendriehoek");
+                    location.reload();
+                }
+               
+                else if(kleurarray[1]==1 && vormarray[1]==1 && randomInteger==7  ) {
+                    alert("rodedriehoek");
+                    location.reload();
+                }
+                
+                else if(kleurarray[2]==1 && vormarray[1]==1 && randomInteger==1  ) {
+                    alert("blauwedriehoek");
+                    location.reload();
+                }
+				
+				else if(kleurarray[3]==1 && vormarray[1]==1 && randomInteger==13  ) {
+                    alert("paarseDriehoek");
+                    location.reload();
+                }
+				
+				else if(kleurarray[4]==1 && vormarray[1]==1 && randomInteger==17  ) {
+                    alert("geleDriehoek");
+                    location.reload();
+                }
+                //cirkels
+                else if(kleurarray[0]==1 && vormarray[2]==1 && randomInteger==5  ) {
+                    alert("groenecirkel");
+                    location.reload();
+                }
+                
+                else if(kleurarray[1]==1 && vormarray[2]==1 && randomInteger==8  ) {
+                    alert("rodecirkel");
+                    location.reload();
+                }
+                
+                else if(kleurarray[2]==1 && vormarray[2]==1 && randomInteger==2  ) {
+                    alert("blauwecirkel");
+                    location.reload();
+                }
+				
+				else if(kleurarray[3]==1 && vormarray[2]==1 && randomInteger==14  ) {
+                    alert("paarsecirkel");
+                    location.reload();
+                }
+                
+				else if(kleurarray[4]==1 && vormarray[2]==1 && randomInteger==18  ) {
+                    alert("gelecirkel");
+                    location.reload();
+                }
+				//sterren
+				else if(kleurarray[0]==1 && vormarray[3]==1 && randomInteger==10  ) {
+                    alert("groenester");
+                    location.reload();
+                }
+				
+				else if(kleurarray[1]==1 && vormarray[3]==1 && randomInteger==11  ) {
+                    alert("rodester");
+                    location.reload();
+                }
+				
+				else if(kleurarray[2]==1 && vormarray[3]==1 && randomInteger==9  ) {
+                    alert("blauwester");
+                    location.reload();
+                }
+				
+				else if(kleurarray[3]==1 && vormarray[3]==1 && randomInteger==15  ) {
+                    alert("paarsester");
+                    location.reload();
+                }
+				
+				else if(kleurarray[4]==1 && vormarray[3]==1 && randomInteger==19  ) {
+                    alert("gelester");
+                    location.reload();
+                }
+				
+				//zeshoeken
+				else if(kleurarray[0]==1 && vormarray[4]==1 && randomInteger==21  ) {
+                    alert("groenezeshoek");
+                    location.reload();
+                }
+				
+				else if(kleurarray[1]==1 && vormarray[4]==1 && randomInteger==22  ) {
+                    alert("rodezeshoek");
+                    location.reload();
+                }
+				
+				else if(kleurarray[2]==1 && vormarray[4]==1 && randomInteger==20  ) {
+                    alert("blauwzeshoek");
+                    location.reload();
+                }
+				
+				else if(kleurarray[3]==1 && vormarray[4]==1 && randomInteger==23  ) {
+                    alert("paarsezeshoek");
+                    location.reload();
+                }
+				else if(kleurarray[4]==1 && vormarray[4]==1 && randomInteger==24  ) {
+                    alert("gelezeshoek");
+                    location.reload();
+                }
+                
+				else if(kleurarray[4]==0 && kleurarray[3]==0 && kleurarray[2]==0 && kleurarray[1]==0 &&  kleurarray[0]==0) {
+                    alert("Er moet een van kleuren gekozen worden. Kies een kleur ");
+                    location.reload();
+                }
+				
+				else if(vormarray[4]==0 && vormarray[3]==0 && vormarray[2]==0 && vormarray[1]==0 &&  vormarray[0]==0) {
+                    alert("Er moet een van vormen gekozen worden. Kies een vorm ");
+                    location.reload();
+                }
+				else {
+                    alert("Foute combinatie. Probeer opnieuw!");
+                    location.reload();
+                }
+            }
+			
+			
+			
+		
+			
+			</script>
+	</body>
+</html>
