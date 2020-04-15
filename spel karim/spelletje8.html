@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+       <title> Testomgeving canvas  </title>
+	<link rel="stylesheet" href="stijl.css" />
+</head>
+<body>
+			<!-- afbeeldingen -->
+			<div style="display:none;">
+				
+				<!-- extra figuren -->
+				<img src="ster.jpg" alt="ster" id="vorm3" />
+				<img src="zeshoek.jpg" alt="zeshoek" id="vorm4" />
+				
+				<!-- extra kleuren -->
+				<img src="paars.jpg" alt="paars" id="kleur3" />
+				<img src="geel.jpg" alt="geel" id="kleur4" />
+				
+				<!-- wiskundige symbolen -->
+				<img src="Gelijkheidsteken.jpg" alt ="gelijkheidsteken" id="gelijkheidsteken" />
+				<img src="plusteken.jpg" alt="plusteken" id="plusteken" />
+				
+				<!-- mogelijke antwoorden -->
+				<img src="blauwVierkant.jpg" alt ="blauwVierkant" id="0" /> <!-- makkelijk -->
+				<img src="blauwDriehoek.jpg" alt ="blauwDriehoek" id="1" /><!-- makkelijk -->
+				<img src="blauwCirkel.jpg" alt ="blauwCirkel" id="2" /><!-- makkelijk -->
+				<img src="blauwSter.jpg" alt ="blauwSter" id="3" />	<!-- normaal -->
+				<img src="blauwZeshoek.jpg" alt ="blauwZeshoek" id="4" /><!-- moeilijk -->
+				<img src="groenVierkant.jpg" alt ="groenVierkant" id="5" /><!-- makkelijk -->
+				<img src="groenDriehoek.jpg" alt ="groenDriehoek" id="6" /><!-- makkelijk -->
+				<img src="groenCirkel.jpg" alt ="groenCirkel" id="7" /><!-- makkelijk -->
+				<img src="groenSter.jpg" alt ="groenSter" id="8" />	<!-- normaal -->
+				<img src="groenZeshoek.jpg" alt ="groenZeshoek" id="9" /><!-- moeilijk -->
+				<img src="roodVierkant.jpg" alt ="roodVierkant" id="10" /><!-- makkelijk -->
+				<img src="roodDriehoek.jpg" alt ="roodDriehoek" id="11" /><!-- makkelijk -->
+				<img src="roodCirkel.jpg" alt ="roodCirkel" id="12" /><!-- makkelijk -->
+				<img src="roodSter.jpg" alt ="roodSter" id="13" /><!-- normaal -->
+				<img src="roodZeshoek.jpg" alt ="roodZeshoek" id="14" /><!-- moeilijk -->
+				<img src="paarsVierkant.jpg" alt ="paarsVierkant" id="15" /><!-- normaal -->
+				<img src="paarsDriehoek.jpg" alt ="paarsDriehoek" id="16" /><!-- normaal -->
+				<img src="paarsCirkel.jpg" alt ="paarsCirkel" id="17" /><!-- normaal -->
+				<img src="paarsSter.jpg" alt ="paarsSter" id="18" /><!-- normaal -->
+				<img src="paarsZeshoek.jpg" alt ="paarsZeshoek" id="19" /><!-- moeilijk -->
+				<img src="geelVierkant.jpg" alt ="geelVierkant" id="20" /><!-- moeilijk -->
+				<img src="geelDriehoek.jpg" alt ="geelDriehoek" id="21" /><!-- moeilijk -->
+				<img src="geelCirkel.jpg" alt ="geelCirkel" id="22" /><!-- moeilijk -->
+				<img src="geelSter.jpg" alt ="geelSter" id="23" /><!-- moeilijk -->
+				<img src="geelZeshoek.jpg" alt ="geelZeshoek" id="24" /><!-- moeilijk -->
+			</div>
+
+			<!-- De verhouding tussen width en height is altijd 2 op 1 -->
+			<canvas id="hetCanvas" width="600" height="300">
+			</canvas>
+			
+			<!-- Kleurenarray -->
+			<h3><b>Kleur:</b></h3>
+			<p id="kleurenArray">
+				<img src ="blauw.jpg" alt="blauw" id="kleur0"
+					onclick="blauwGekozen()"/>
+				<img src="groen.jpg" alt="groen" id="kleur1"
+					onclick="groenGekozen()"/>
+				<img src="rood.jpg" alt="rood" id="kleur2"
+					onclick="roodGekozen()"/>
+			</p>
+			
+			<!-- Vormenarray -->
+			<h3><b>Vorm:</b></h3>
+			<p id="vormenArray">
+				<img src ="vierkant.jpg" alt="vierkant" id="vorm0"
+					onclick="vierkantGekozen()"/>
+				<img src="driehoek.jpg" alt="driehoek" id="vorm1"
+					onclick="driehoekGekozen()"/>
+				<img src="cirkel.jpg" alt="cirkel" id="vorm2"
+					onclick="cirkelGekozen()"/>
+			</p>
+            
+            <a onclick="check()" class="btn-pill green" id="controleer">Controleer</a>
+			
+			<!-- JavaScript -->
+			<script type="text/javascript">
+			
+			//canvasvariabelen
+			var canvas
+			var ctx
+			var l 
+			var h
+			
+			//willekeurige integer
+			var randomInteger = 100;
+			
+			//globale afbeeldingvariabelen
+			//
+			//Het teken van een afbeelding gebeurt met ctx.drawImage(varImg,
+			//linkerhoekcoördinaten,afmetingenAfbeelding)
+			var gelijkheidstekenImg = document.getElementById("gelijkheidsteken");
+			var plustekenImg = document.getElementById("plusteken");
+			var outputImg
+			var blauwImg = document.getElementById("kleur0");
+			var groenImg = document.getElementById("kleur1");
+			var roodImg = document.getElementById("kleur2")
+			var paarsImg = document.getElementById("kleur3");
+			var geelImg = document.getElementById("kleur4");
+			var vierkantImg = document.getElementById("vorm0");
+			var driehoekImg = document.getElementById("vorm1");
+			var cirkelImg = document.getElementById("vorm2");
+			var sterImg = document.getElementById("vorm3");
+			var zeshoekImg = document.getElementById("vorm4");
+			
+			//globale moeilijkheidsvariabele
+			var niveau = 3;
+			
+			//globale kleur- en vormarrayvariabelen
+			var kleurArray = document.getElementById("kleurenArray");
+			var vormArray = document.getElementById("vormenArray");
+			
+			//globale inputsvariabele
+			var invoerKleur = 100;
+			var invoerVorm = 100;
+			
+			//de eventlisteners voor de invoerafbeeldingen
+			function tekenInvoerKleur(){
+				var invoerKleurImg = document
+					.getElementById("kleur"+invoerKleur.toString());
+				ctx.drawImage(invoerKleurImg,0.5*l,h,l,h);
+			}
+			
+			function tekenInvoerVorm(){
+				var invoerVormImg = document
+					.getElementById("vorm"+invoerVorm.toString());
+				ctx.drawImage(invoerVormImg,2.5*l,h,l,h);
+			}
+			
+			function blauwGekozen(){
+				invoerKleur = 0;
+				tekenInvoerKleur();
+			}
+			
+			function groenGekozen(){
+				invoerKleur = 1;
+				tekenInvoerKleur();
+			}
+			
+			function roodGekozen(){
+				invoerKleur = 2;
+				tekenInvoerKleur();
+			}
+			
+			function paarsGekozen(){
+				invoerKleur = 3;
+				tekenInvoerKleur();
+			}
+			
+			function geelGekozen(){
+				invoerKleur = 4;
+				tekenInvoerKleur();
+			}
+			
+			function vierkantGekozen(){
+				invoerVorm = 0;
+				tekenInvoerVorm();
+			}
+			
+			function driehoekGekozen(){
+				invoerVorm = 1;
+				tekenInvoerVorm();
+			}
+			
+			function cirkelGekozen(){
+				invoerVorm = 2;
+				tekenInvoerVorm();
+			}
+			
+			function sterGekozen(){
+				invoerVorm = 3;
+				tekenInvoerVorm();
+			}
+			
+			function zeshoekGekozen(){
+				invoerVorm = 4;
+				tekenInvoerVorm();
+			}
+			
+			//random outputafbeelding rekening houdend met
+			//het niveau
+			function randomIntegerOke(){
+				var bool1 = randomInteger/(niveau+2)<5;
+				var bool2 = randomInteger%5<niveau+2;
+				
+				return bool1 && bool2;
+			}
+			
+			function randomOutputGen(niveau){
+				while(!randomIntegerOke()){
+					randomInteger = Math.floor(Math.random()*25);
+				}
+				return document.getElementById(randomInteger.toString());
+			}
+            
+			//controleerknopfunctie
+            function check() {
+				if(invoerKleur == Math.floor(randomInteger/5) 
+					&& invoerVorm == randomInteger%5){
+					alert("juist geraden");
+				}
+				else{
+					alert("fout geraden");
+				}
+				location.reload();
+            }
+			
+			//Dit is de "main"-functie die wordt opgeroepen wanneer
+			//het scherm terug geladen wordt.
+			
+			window.onload = function(){
+				
+				//canvas
+				canvas = document.getElementById('hetCanvas');
+				ctx = canvas.getContext('2d');
+				ctx.fillStyle = "#FFFFFF";
+				
+				l = canvas.width/6;
+				h = canvas.height/3;
+				
+				ctx.drawImage(plustekenImg,1.5*l,h,l,h);
+				ctx.drawImage(gelijkheidstekenImg,3.5*l,h,l,h);
+				
+				outputImg = randomOutputGen();
+				ctx.drawImage(outputImg,4.5*l,h,l,h);
+				
+				//kleurarray en vormarray
+				blauwImg.width = l;
+				blauwImg.heigth = h;
+				groenImg.width = l;
+				groenImg.height = h;
+				roodImg.width = l;
+				roodImg.height = h;
+				
+				vierkantImg.width = l;
+				vierkantImg.height = h;
+				driehoekImg.width = l;
+				driehoekImg.height = h;
+				cirkelImg.width = l;
+				cirkelImg.height = h;
+				
+				if(niveau > 1){
+					paarsImg.display = "visible";
+					paarsImg.width = l;
+					paarsImg.height = h;
+					paarsImg.addEventListener('mousedown',paarsGekozen,false);
+					kleurArray.appendChild(paarsImg);
+					
+					sterImg.display = "visible";
+					sterImg.width = l;
+					sterImg.height = h;
+					sterImg.addEventListener('mousedown',sterGekozen,false);
+					vormArray.appendChild(sterImg);
+				}
+				
+				if(niveau > 2){
+					geelImg.display = "visible";
+					geelImg.width = l;
+					geelImg.height = h;
+					geelImg.addEventListener('mousedown',geelGekozen,false);
+					kleurArray.appendChild(geelImg);
+					
+					zeshoekImg.display = "visible";
+					zeshoekImg.width = l;
+					zeshoekImg.height = h;
+					zeshoekImg.addEventListener('mousedown',zeshoekGekozen,false);
+					vormArray.appendChild(zeshoekImg);
+				}
+			}
+			
+			</script>
+	</body>
+</html>
