@@ -146,7 +146,7 @@
 			var invoerVorm;
 			
 			//globale variabele voor score bij te houden
-			var naam = "Joske Vermeulen";
+			var naam = "Joske Vermeulen"
             var punten;
            
 			
@@ -155,6 +155,8 @@
 			var spel = document.getElementById("spel");
 			var juistAntwoordBox = document.getElementById("juistAntwoord");
 			var foutAntwoordBox = document.getElementById("foutAntwoord");
+			
+			
 			
 			//evenListener voor juistAntwoordBox
 			function nogEensSpelen(){
@@ -279,7 +281,8 @@
 				ctx = canvas.getContext('2d');
 				ctx.fillStyle = "#FFFFFF";
 				l = canvas.width/6;
-				h = canvas.height/3; 
+				h = canvas.height/3;
+                
 			}
 			
 			function initCanvas(){
@@ -292,7 +295,9 @@
 				ctx.drawImage(outputImg,4.5*l,h,l,h);
                 ctx.font = "bold 20px Arial";
                 ctx.fillStyle = "black";
-                ctx.fillText("Punten: "+localStorage.getItem("punten"),480, 30);    
+                ctx.fillText("Punten: "+localStorage.getItem("punten"),480, 30);
+                
+                
 			}
 			
 			function setArraysGemakkelijk(){
@@ -302,6 +307,8 @@
 				groenImg.height = h;
 				roodImg.width = l;
 				roodImg.height = h;
+				paarsImg.remove();
+				geelImg.remove();
 				
 				vierkantImg.width = l;
 				vierkantImg.height = h;
@@ -309,6 +316,8 @@
 				driehoekImg.height = h;
 				cirkelImg.width = l;
 				cirkelImg.height = h;
+				sterImg.remove();
+				zeshoekImg.remove();
 			}
 			
 			function voegToeArraysNormaal(){
@@ -351,32 +360,23 @@
 				vormArray.appendChild(zeshoekImg);
 			}
 			
-			function verwijderArraysNormaal(){
-				vormArray.removeChild(vormArray.childNodes[7]);
-				kleurArray.removeChild(kleurArray.childNodes[7]);
-			}
-			
-			function verwijderArraysMoeilijk(){
-				vormArray.removeChild(vormArray.childNodes[8]);
-				kleurArray.removeChild(kleurArray.childNodes[8]);
-			}
-			
 			function setArrays(){
 				setArraysGemakkelijk();
 				if(niveau > 1)
 					voegToeArraysNormaal();
 				if(niveau > 2)
 					voegToeArraysMoeilijk();
-				if(niveau < 3)
-					verwijderArraysMoeilijk();
-				if(niveau < 2)
-					verwijderArraysNormaal();
 			}
 			
 			function laadSpel(){
+				
 				setCanvasVariabelen();
+				
 				initCanvas();
-				setArrays();  
+				
+				setArrays();
+				
+               
 			}
 			
 			</script>
