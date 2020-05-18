@@ -47,16 +47,16 @@ div.kleurplaats{
 		 
 		 text-align: center;
 		 position: relative;
-		 left: -180px;
+		 left: -12%;
 		 
 	
 }
 div.vormplaats{
 	
-	text-align: left;
+	text-align: center;
 	position: relative;
 	
-	left: 1000px;
+	left: 12%;
 	bottom:165px;
 }
 /* boxen */
