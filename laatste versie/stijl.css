@@ -43,21 +43,27 @@ div.test {
     font-family: "Comic Sans MS";
 }
 
+
 div.kleurplaats{
-		 
+		 width: 700px;
+		 height: 200px;
 		 text-align: center;
 		 position: relative;
-		 left: -14%;
+		 left: -3%; 
+		 
+		 
+		 
 		 
 	
 }
 div.vormplaats{
-	
+	    width: 700px;
+		 height: 200px;
+		
 	text-align: center;
 	position: relative;
-	
-	left: 14%;
-	bottom:165px;
+	left: 48%;
+	top:-220px;
 }
 /* boxen */
 /*.beginbox{
@@ -138,7 +144,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, 
   color: #fff;
   line-height: 30px;
   text-align: center;
-  bottom : 170px;
+  bottom : 260px;
   border: none;
   text-transform: uppercase;
   vertical-align: top;
