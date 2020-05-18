@@ -5,7 +5,25 @@
        <title> Testomgeving canvas  </title>
 	<link rel="stylesheet" href="stijl.css" />
 </head>
-<body>
+<style type="text/css">
+	.tg  {border-collapse:collapse;border-color:#aaa;border-spacing:0;}
+	.tg td{background-color:#fff;border-color:#aaa;border-style:solid;border-width:1px;color:#333;
+	  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+	.tg th{background-color:#f38630;border-color:#aaa;border-style:solid;border-width:1px;color:#fff;
+	  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+	.tg .tg-u97d{border-color:#000000;font-family:"Comic Sans MS", cursive, sans-serif !important;;font-weight:bold;text-align:left;
+	  vertical-align:top}
+	.tg .tg-ovmg{border-color:#000000;color:#000000;font-family:"Comic Sans MS", cursive, sans-serif !important;;font-weight:bold;
+	  text-align:right;vertical-align:top}
+	.tg .tg-5fii{background-color:#ffffff;border-color:#000000;color:#000000;
+	  font-family:"Comic Sans MS", cursive, sans-serif !important;;font-weight:bold;text-align:left;vertical-align:top}
+	.tg .tg-w4gq{border-color:#000000;font-family:"Comic Sans MS", cursive, sans-serif !important;;text-align:center;vertical-align:top}
+	.tg .tg-58of{background-color:#f38630;border-color:#000000;font-family:"Comic Sans MS", cursive, sans-serif !important;;
+	  text-align:center;vertical-align:top}
+	.tg .tg-658k{border-color:#000000;font-family:"Comic Sans MS", cursive, sans-serif !important;;font-weight:bold;text-align:right;
+	  vertical-align:top}
+	</style>
+<body onload="httpGet('https:/\/www.wai-not.be/api/username')">
 			
 			<!-- Beginbox -->
 			<div id="beginbox" class="beginbox">
@@ -194,7 +212,7 @@
 			var invoerVorm;
 			
 			//globale variabele voor score bij te houden
-			var naam = "Joske Vermeulen"
+			var naam ;
             var punten;
             var response;
             var items;
@@ -341,7 +359,7 @@
 					else
 					{
 						toonBoxFoutAntwoord();
-						doWork();
+						display();
 					}
 				}
             }
@@ -483,12 +501,13 @@
 				
 			}
 			
-                 function doWork() //AJAX gedeelte
+			function doWork() //AJAX gedeelte
                 {
                     httpObject = getHTTPObject();
                     if (httpObject != null)
                     {
-                        httpObject.open("GET","highscore.php?punten="+punten+"&niveau="+niveau,true);
+						httpObject.open("GET","highscore.php?username="+naam+"&punten="+punten+"&niveau="+niveau,true);
+						//httpObject.open("GET","highscore.php?username=bas&punten="+punten+"&niveau="+niveau,true);					
                         httpObject.onreadystatechange = setOutput;
                         httpObject.send(null);
                     }
@@ -511,16 +530,44 @@
                     if(httpObject.readyState==4)
                         {
                             response= httpObject.responseText;
+							console.log(response);
                             items = response.split(";");
-                            document.getElementById("speler1").innerHTML ="speler 1: "+ items[0];
-                            document.getElementById("speler2").innerHTML ="speler 2: "+ items[1];
-                            document.getElementById("speler3").innerHTML ="speler 3: "+ items[2];
-                            document.getElementById("speler4").innerHTML ="speler 4: "+ items[3];
-                            document.getElementById("speler5").innerHTML ="speler 5: "+ items[4];
-                           
+							if(items[0])
+                            	document.getElementById("speler1").innerHTML ="1.    " +items[0] +"   score:  "+ items[1];
+							if(items[2])
+								document.getElementById("speler2").innerHTML ="2.    " +items[2] +"   score:  "+ items[3];
+							if(items[4])
+								document.getElementById("speler3").innerHTML ="3.    " +items[4] +"   score:  "+ items[5];
+							if(items[6])
+								document.getElementById("speler4").innerHTML ="4.    " +items[6] +"   score:  "+ items[7];
+							if(items[8])
+								document.getElementById("speler5").innerHTML ="5.    " +items[8] +"   score:  "+ items[9];  
                         }
                 }
-                
+			function httpGet(theURL)
+				{
+					var xmlHttp = getHTTPObject();
+					xmlHttp.open("GET", theURL,false);
+					xmlHttp.onreadystatechange = function() {
+						if (this.readyState==4 && this.status == 200) {
+							var myJSON = JSON.parse(xmlHttp.responseText);
+						}
+					}
+					xmlHttp.send(null);
+					var jsonObj = JSON.parse(xmlHttp.responseText);
+					naam = jsonObj.name;
+					console.log(jsonObj);	
+				}
+
+				function display()
+				{
+					console.log(naam);
+					doWork();
+					if(naam)
+					{
+						doWork();
+					}
+				}
 			</script>
 	</body>
 </html>
