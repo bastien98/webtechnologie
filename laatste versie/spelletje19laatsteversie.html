@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
        <title> Testomgeving canvas  </title>
-	<link rel="stylesheet" href="stijl.css" />
+	<link rel="stylesheet" href="stijl2.css" />
 </head>
 <style type="text/css">
 	.tg  {border-collapse:collapse;border-color:#aaa;border-spacing:0;}
@@ -230,12 +230,19 @@
 			var verlorenGeluid = new Audio();
 			verlorenGeluid.src ="verloren.mp3";
 			
+			var winnenGeluid = new Audio();
+			winnenGeluid.src ="juistAntwoord.mp3";
+			
 			function playSound(){
 				button.play();
 			}
 			
 			function playSound2(){
 				verlorenGeluid.play();
+			}
+			
+			function playSound3(){
+				winnenGeluid.play();
 			}
 			//evenListener voor juistAntwoordBox
 			function nogEensSpelen(){
@@ -343,6 +350,7 @@
 				    punten = localStorage.getItem("punten"); 
                     punten++;
                     localStorage.setItem("punten", punten);
+					playSound3();
 					toonBoxJuistAntwoord();
 				}
 				else{
