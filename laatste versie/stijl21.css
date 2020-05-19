@@ -12,6 +12,7 @@ canvas {
 .beginbox{
 	text-align: center;
 	font-family: "Comic Sans MS";
+	font-size: 20px;
 	display: block;
 	visibility: visible;
 	position: fixed;
@@ -27,15 +28,17 @@ canvas {
 
 .beginboxContent{
 	text-align: center;
+	position:relative;
+	top:-100px;
 	background-color: #fefefe;
 	margin: 15% auto;
 	padding: 20px;
 	border: 1px solid #888;
 	width: 60%;
-    border-top-left-radius: 100px;
-    border-top-right-radius: 100px;
-	border-bottom-left-radius: 100px;
-    border-bottom-right-radius: 100px;
+    border-top-left-radius: 90px;
+    border-top-right-radius: 90px;
+	border-bottom-left-radius: 90px;
+    border-bottom-right-radius: 90px;
 }  
 
 div.test {
@@ -49,6 +52,7 @@ div.kleurplaats{
 		 height: 200px; */
 		 text-align: center;
 		 display: inline-block;
+		 
 		 /* position: relative;
 		 left: -3%; */
 		 
